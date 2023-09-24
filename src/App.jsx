@@ -1,10 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import data from '../src/data';
-import ListContainer from './note/ListContainer';
+import ListContainer from './note/ListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
-import SelectView from './note/SelectView';
 
 class App extends React.Component {
 	constructor(props) {
