@@ -4,7 +4,7 @@ const getInitialData = () => [
 		title: 'Babel',
 		body: 'Babel merupakan tools open-source yang digunakan untuk mengubah sintaks ECMAScript 2015+ menjadi sintaks yang didukung oleh JavaScript engine versi lama. Babel sering dipakai ketika kita menggunakan sintaks terbaru termasuk sintaks JSX.',
 		createdAt: '2022-04-14T04:27:34.572Z',
-		archived: false,
+		archived: true,
 	},
 	{
 		id: 2,
@@ -18,7 +18,7 @@ const getInitialData = () => [
 		title: 'Modularization',
 		body: 'Dalam konteks pemrograman JavaScript, modularization merupakan teknik dalam memecah atau menggunakan kode dalam berkas JavaScript secara terpisah berdasarkan tanggung jawabnya masing-masing.',
 		createdAt: '2022-04-14T04:27:34.572Z',
-		archived: false,
+		archived: true,
 	},
 	{
 		id: 4,
