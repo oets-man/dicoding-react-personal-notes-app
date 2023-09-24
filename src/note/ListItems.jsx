@@ -4,8 +4,9 @@ import React from 'react';
 import showFormattedDate from '../utils/format-date';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
-export default function ListItems({ title, body, createdAt, archived, toggleArchived, id }) {
+export default function ListItems({ title, body, createdAt, archived, toggleArchived, id,onDelete }) {
 	return (
 		<Card className="p-3">
 			<Card.Title className="row">
@@ -21,10 +22,19 @@ export default function ListItems({ title, body, createdAt, archived, toggleArch
 				</div>
 			</Card.Title>
 			<Card.Body className="p-0">
-				{/* <p>{archived ? 'ya' : 'tidak'}</p> */}
 				<p>{body}</p>
 				<hr />
-				<p className="m-0">{showFormattedDate(createdAt)}</p>
+
+					<div className='row'>
+						<div className='col-auto my-auto'>
+							<p className="m-0">{showFormattedDate(createdAt)}</p>
+						</div>
+						<div className='col text-end'>
+							<Button variant="danger" onClick={()=>onDelete(id)}>
+								Hapus
+							</Button>
+						</div>
+					</div>
 			</Card.Body>
 		</Card>
 	);
