@@ -7,7 +7,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 export default function InputSearch({ strSearch, onChangeSearch, onReset }) {
 	return (
-		<div className="col-sm-12 col-md-6 col-lg-4 mx-auto">
+		<div className="col-sm-12 col-md-6 col-lg-4 mx-auto" style={{minWidth:'375px'}}>
 			<InputGroup>
 				<Form.Control
 					placeholder="Masukkan teks pencarian"

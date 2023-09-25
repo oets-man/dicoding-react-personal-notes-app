@@ -1,13 +1,17 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import data from '../src/data';
-import ListContainer from './note/ListContainer';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
-import SelectView from './note/SelectView';
-import InputSearch from './note/InputSearch';
+
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+
+import ListContainer from './note/ListContainer';
+import SelectView from './note/SelectView';
+import InputSearch from './note/InputSearch';
+import ModalForm from './note/ModalForm';
+import ButtonAdd from './note/ButtonAdd';
 
 class App extends React.Component {
 	constructor(props) {
@@ -16,12 +20,17 @@ class App extends React.Component {
 			notes: data(),
 			view: 'all',
 			strSearch: '',
+			showModal: false,
 		};
+
 		this.toggleArchived_ev = this.toggleArchived_ev.bind(this);
 		this.onChangeView = this.onChangeView.bind(this);
 		this.onChangeSearch = this.onChangeSearch.bind(this);
 		this.onReset = this.onReset.bind(this);
 		this.onDelete = this.onDelete.bind(this);
+		this.handleShowModal = this.handleShowModal.bind(this);
+		this.handleHideModal = this.handleHideModal.bind(this);
+		this.addNote = this.addNote.bind(this);
 	}
 
 	filteredNotes() {
@@ -70,6 +79,23 @@ class App extends React.Component {
 		);
 	}
 
+	handleHideModal() {
+		this.setState({ showModal: false });
+	}
+
+	handleShowModal() {
+		this.setState({ showModal: true });
+	}
+
+	addNote(newNote) {
+		this.setState((prevState) => {
+			return {
+				notes: [...prevState.notes, newNote],
+			};
+		});
+		this.setState({ showModal: false });
+		alertify.success('Catatan berhasil dibuat!');
+	}
 	render() {
 		return (
 			<Container>
@@ -77,8 +103,9 @@ class App extends React.Component {
 				<hr />
 				<InputSearch strSearch={this.state.strSearch} onReset={this.onReset} onChangeSearch={this.onChangeSearch} />
 				<SelectView changeView={this.onChangeView} />
-				<hr />
+				<ButtonAdd handleShowModal={this.handleShowModal} />
 				<ListContainer notes={this.filteredNotes()} toggleArchived={this.toggleArchived_ev} onDelete={this.onDelete} />
+				<ModalForm stateModal={this.state.showModal} hideModal={this.handleHideModal} addNote={this.addNote} />
 			</Container>
 		);
 	}
