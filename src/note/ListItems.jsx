@@ -10,17 +10,18 @@ export default function ListItems({ title, body, createdAt, archived, toggleArch
 	return (
 		<Card>
 			<Card.Header>
-				<Card.Title>
+				<Card.Title className='m-0'>
 					<h2 className="fw-normal fs-4 m-0">{title}</h2>
 				</Card.Title>
-				<Card.Text className="text-end fst-italic">
-					<small> &mdash; dibuat: {showFormattedDate(createdAt)}</small>
-				</Card.Text>
 			</Card.Header>
 			<Card.Body className="p-3">
 				<Card.Text className="" style={{ textAlign: 'justify' }}>
 					{body}
 				</Card.Text>
+				<Card.Text className="text-end fst-italic">
+					<small> &mdash; dibuat: {showFormattedDate(createdAt)}</small>
+				</Card.Text>
+
 			</Card.Body>
 
 			<Card.Footer className="d-flex align-items-center justify-content-between">

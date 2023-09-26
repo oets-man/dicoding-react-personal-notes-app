@@ -1,19 +1,17 @@
-// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import data from '../src/data';
 
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
-import 'alertifyjs/build/css/themes/default.min.css'
-
+import 'alertifyjs/build/css/themes/default.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
 
 import ListContainer from './note/ListContainer';
 import SelectView from './note/SelectView';
 import InputSearch from './note/InputSearch';
 import ModalForm from './note/ModalForm';
 import ButtonAdd from './note/ButtonAdd';
+import TitleApp from './note/TitleApp';
 
 class App extends React.Component {
 	constructor(props) {
@@ -49,7 +47,10 @@ class App extends React.Component {
 	toggleArchived(id) {
 		const notes = this.state.notes.map((note) => {
 			if (note.id == id) {
-				return (note = { ...note, archived: !note.archived });
+				note = { ...note, archived: !note.archived };
+
+				if (note.archived == true) alertify.success('Catatan dipindahkan ke arsip');
+				else alertify.success('Catatan dihapus dari arsip');
 			}
 			return note;
 		});
@@ -95,24 +96,32 @@ class App extends React.Component {
 				notes: [...prevState.notes, newNote],
 			};
 		});
+
 		this.setState({ showModal: false });
 		alertify.success('Catatan berhasil dibuat!');
-		if (this.state.view == 'isArchived'){
+
+		if (this.state.view == 'isArchived') {
 			alertify.notify('Disimpan sebagai catatan yang tidak diarsipkan.<br/> Ubah tampilan untuk melihat catatan yang baru dibuat!');
 		}
 	}
 
 	render() {
 		return (
-			<Container>
-				<h1 className="text-center p-1 mt-4">Aplikasi Catatan Pribadi</h1>
-				<hr />
-				<InputSearch strSearch={this.state.strSearch} onReset={this.onReset} onChangeSearch={this.onChangeSearch} />
-				<SelectView changeView={this.onChangeView} />
-				<ButtonAdd handleShowModal={this.handleShowModal} />
-				<ListContainer notes={this.filteredNotes()} toggleArchived={this.toggleArchived} onDelete={this.onDelete} />
-				<ModalForm stateModal={this.state.showModal} hideModal={this.handleHideModal} addNote={this.handleAddNote} />
-			</Container>
+			<>
+				<header>
+					<TitleApp>Aplikasi Catatan Pribadi</TitleApp>
+				</header>
+				<main className='container'>
+						<InputSearch strSearch={this.state.strSearch} onReset={this.onReset} onChangeSearch={this.onChangeSearch} />
+						<SelectView changeView={this.onChangeView} />
+						<ButtonAdd handleShowModal={this.handleShowModal} />
+						<ListContainer notes={this.filteredNotes()} toggleArchived={this.toggleArchived} onDelete={this.onDelete} />
+						<ModalForm stateModal={this.state.showModal} hideModal={this.handleHideModal} addNote={this.handleAddNote} />
+				</main>
+				<footer className='p-1 bg-dark'>
+					<p className='m-0 text-light text-center'>by oets</p>
+				</footer>
+			</>
 		);
 	}
 }
