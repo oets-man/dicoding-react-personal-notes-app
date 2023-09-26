@@ -4,6 +4,8 @@ import data from '../src/data';
 
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
+import 'alertifyjs/build/css/themes/default.min.css'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 
@@ -23,14 +25,14 @@ class App extends React.Component {
 			showModal: false,
 		};
 
-		this.toggleArchived_ev = this.toggleArchived_ev.bind(this);
+		this.toggleArchived = this.toggleArchived.bind(this);
 		this.onChangeView = this.onChangeView.bind(this);
 		this.onChangeSearch = this.onChangeSearch.bind(this);
 		this.onReset = this.onReset.bind(this);
 		this.onDelete = this.onDelete.bind(this);
 		this.handleShowModal = this.handleShowModal.bind(this);
 		this.handleHideModal = this.handleHideModal.bind(this);
-		this.addNote = this.addNote.bind(this);
+		this.handleAddNote = this.handleAddNote.bind(this);
 	}
 
 	filteredNotes() {
@@ -44,7 +46,7 @@ class App extends React.Component {
 		return filterView;
 	}
 
-	toggleArchived_ev(id) {
+	toggleArchived(id) {
 		const notes = this.state.notes.map((note) => {
 			if (note.id == id) {
 				return (note = { ...note, archived: !note.archived });
@@ -87,7 +89,7 @@ class App extends React.Component {
 		this.setState({ showModal: true });
 	}
 
-	addNote(newNote) {
+	handleAddNote(newNote) {
 		this.setState((prevState) => {
 			return {
 				notes: [...prevState.notes, newNote],
@@ -95,7 +97,11 @@ class App extends React.Component {
 		});
 		this.setState({ showModal: false });
 		alertify.success('Catatan berhasil dibuat!');
+		if (this.state.view == 'isArchived'){
+			alertify.notify('Disimpan sebagai catatan yang tidak diarsipkan.<br/> Ubah tampilan untuk melihat catatan yang baru dibuat!');
+		}
 	}
+
 	render() {
 		return (
 			<Container>
@@ -104,8 +110,8 @@ class App extends React.Component {
 				<InputSearch strSearch={this.state.strSearch} onReset={this.onReset} onChangeSearch={this.onChangeSearch} />
 				<SelectView changeView={this.onChangeView} />
 				<ButtonAdd handleShowModal={this.handleShowModal} />
-				<ListContainer notes={this.filteredNotes()} toggleArchived={this.toggleArchived_ev} onDelete={this.onDelete} />
-				<ModalForm stateModal={this.state.showModal} hideModal={this.handleHideModal} addNote={this.addNote} />
+				<ListContainer notes={this.filteredNotes()} toggleArchived={this.toggleArchived} onDelete={this.onDelete} />
+				<ModalForm stateModal={this.state.showModal} hideModal={this.handleHideModal} addNote={this.handleAddNote} />
 			</Container>
 		);
 	}

@@ -21,7 +21,7 @@ export default function ListContainer({ notes, toggleArchived, onDelete }) {
 		return (
 			<Alert variant="warning" className="text-center">
 				<p className=" fw-bold m-0">Tidak ada data untuk ditampilkan!</p>
-				<p className="fst-italic m-0">Coba kata kunci yang lain!</p>
+				<p className="fst-italic m-0">Buat baru, ubah tampilan, atau coba kata kunci yang lain!</p>
 			</Alert>
 		);
 	}
