@@ -101,7 +101,7 @@ class App extends React.Component {
 		alertify.success('Catatan berhasil dibuat!');
 
 		if (this.state.view == 'isArchived') {
-			alertify.notify('Disimpan sebagai catatan yang tidak diarsipkan.<br/> Ubah tampilan untuk melihat catatan yang baru dibuat!');
+			alertify.notify('Disimpan sebagai catatan aktif.<br/>Ubah tampilan untuk melihat catatan yang baru dibuat!');
 		}
 	}
 

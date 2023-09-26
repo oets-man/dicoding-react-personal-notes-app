@@ -21,9 +21,7 @@ export default function ListItems({ title, body, createdAt, archived, toggleArch
 				<Card.Text className="text-end fst-italic">
 					<small> &mdash; dibuat: {showFormattedDate(createdAt)}</small>
 				</Card.Text>
-
 			</Card.Body>
-
 			<Card.Footer className="d-flex align-items-center justify-content-between">
 					<Button variant="danger"  onClick={() => onDelete(id)}>
 						Hapus
