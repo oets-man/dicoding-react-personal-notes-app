@@ -1,0 +1,7 @@
+reviewer:
+Supaya aplikasimu menjadi lebih baik lagi, berikut beberapa catatan terkait submission kamu:
+
+Well Done, project yang kamu kirimkan sangat menarik dan dapat berjalan dengan sangat baik, selamat mengerjakan kelas/submission selanjutnya.
+Kamu juga dapat tambahkan icon pada button untuk dapat memiliki pengalaman yang lebih baik lagi seperti https://react-icons.github.io/react-icons/ atau https://fontawesome.com/v5/docs/web/use-with/react
+Pada fitur limit judul catatan harusnya user masih tetap bisa menghapus judul yang sudah mencapai 50 karakter.
+Pada fitur pencarian harusnya yang menjadi kata kunci utama yang dicari adalah judul baru kamu dapat menambahkan pencarian opsional text yang ada pada body.
