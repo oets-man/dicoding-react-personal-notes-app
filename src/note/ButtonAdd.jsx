@@ -11,8 +11,12 @@ export default function ButtonAdd({ handleShowModal }) {
 			style={{ minWidth: '375px' }}
 		>
 			<Button variant="outline-success" onClick={handleShowModal}>
-			<Icon icon="material-symbols:note-add" width="1.5em" height="1.5em" />
-				<span style={{ marginLeft:'4px' }}>Buat Baru</span>
+				<Icon
+					icon="material-symbols:note-add"
+					width="1.5em"
+					height="1.5em"
+				/>
+				<span style={{ marginLeft: '4px' }}>Buat Baru</span>
 			</Button>
 		</div>
 	);
