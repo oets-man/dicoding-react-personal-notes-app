@@ -35,7 +35,7 @@ class ModalForm extends Component {
 		}
 
 		//validate body
-		if ( body.trim().length == 0) {
+		if (body.trim().length == 0) {
 			alertify.alert('Not valid', 'Mohon isi catatan!');
 			return;
 		}
@@ -57,24 +57,22 @@ class ModalForm extends Component {
 	}
 
 	onTitleChange(e) {
-		if (this.state.titleCounter > 0) {
-			this.setState((state) => {
-				return {
-					titleCounter: state.titleCounter - 1,
-				};
+		const title = e.target.value;
+		if (title.length <= TITLE_COUNTER) {
+			this.setState({
+				titleCounter: TITLE_COUNTER - title.length,
+				title: title,
 			});
-			this.setState({ title: e.target.value });
 		}
 	}
 
 	onBodyChange(e) {
-		if (this.state.bodyCounter > 0) {
-			this.setState((state) => {
-				return {
-					bodyCounter: state.bodyCounter - 1,
-				};
+		const body = e.target.value;
+		if (body.length <= BODY_COUNTER) {
+			this.setState({
+				bodyCounter: BODY_COUNTER - body.length,
+				body: body,
 			});
-			this.setState({ body: e.target.value });
 		}
 	}
 
@@ -89,14 +87,24 @@ class ModalForm extends Component {
 					<Modal.Body>
 						<Form.Group className="mb-3">
 							<Form.Label>Judul</Form.Label>
-							<Form.Control type="text" placeholder="Judul catatan" value={this.state.title} onChange={this.onTitleChange} />
+							<Form.Control
+								type="text"
+								placeholder="Judul catatan"
+								value={this.state.title}
+								onChange={this.onTitleChange}
+							/>
 							<div className="text-end">
 								<small>{this.state.titleCounter}</small>
 							</div>
 						</Form.Group>
 						<Form.Group className="mb-3">
 							<Form.Label>Catatan</Form.Label>
-							<Form.Control as="textarea" rows={3} value={this.state.body} onChange={this.onBodyChange} />
+							<Form.Control
+								as="textarea"
+								rows={3}
+								value={this.state.body}
+								onChange={this.onBodyChange}
+							/>
 							<div className="text-end">
 								<small>{this.state.bodyCounter}</small>
 							</div>

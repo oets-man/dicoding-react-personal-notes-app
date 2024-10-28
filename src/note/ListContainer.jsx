@@ -12,7 +12,11 @@ export default function ListContainer({ notes, toggleArchived, onDelete }) {
 			<Row>
 				{notes.map((note) => (
 					<Col sm="12" md="6" lg="4" key={note.id} className="p-2">
-						<ListItems {...note} toggleArchived={toggleArchived} onDelete={onDelete} />
+						<ListItems
+							{...note}
+							toggleArchived={toggleArchived}
+							onDelete={onDelete}
+						/>
 					</Col>
 				))}
 			</Row>
@@ -20,8 +24,12 @@ export default function ListContainer({ notes, toggleArchived, onDelete }) {
 	} else {
 		return (
 			<Alert variant="warning" className="text-center">
-				<p className=" fw-bold m-0">Tidak ada data untuk ditampilkan!</p>
-				<p className="fst-italic m-0">Buat baru, ubah tampilan, atau coba kata kunci yang lain!</p>
+				<p className=" fw-bold m-0">
+					Tidak ada data untuk ditampilkan!
+				</p>
+				<p className="fst-italic m-0">
+					Buat baru, ubah tampilan, atau coba kata kunci yang lain!
+				</p>
 			</Alert>
 		);
 	}

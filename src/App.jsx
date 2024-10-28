@@ -7,7 +7,7 @@ import 'alertifyjs/build/css/themes/default.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ListContainer from './note/ListContainer';
-import SelectView from './note/SelectView';
+import FilterArchive from './note/FilterArchive';
 import InputSearch from './note/InputSearch';
 import ModalForm from './note/ModalForm';
 import ButtonAdd from './note/ButtonAdd';
@@ -18,28 +18,39 @@ class App extends React.Component {
 		super(props);
 		this.state = {
 			notes: data(),
-			view: 'all',
+			optArchived: 'all',
+			optSearch: 'searchTitle',
 			strSearch: '',
 			showModal: false,
 		};
 
 		this.toggleArchived = this.toggleArchived.bind(this);
-		this.onChangeView = this.onChangeView.bind(this);
+		this.onChangeOptionArchived = this.onChangeOptionArchived.bind(this);
 		this.onChangeSearch = this.onChangeSearch.bind(this);
 		this.onReset = this.onReset.bind(this);
 		this.onDelete = this.onDelete.bind(this);
 		this.handleShowModal = this.handleShowModal.bind(this);
 		this.handleHideModal = this.handleHideModal.bind(this);
 		this.handleAddNote = this.handleAddNote.bind(this);
+		this.onChangeOptionSearch = this.onChangeOptionSearch.bind(this);
 	}
 
 	filteredNotes() {
-		let filterSearch = this.state.notes;
-		if (this.state.strSearch.length) filterSearch = this.state.notes.filter((note) => note.body.toLowerCase().includes(this.state.strSearch));
+		const { notes, strSearch, optSearch, optArchived } = this.state;
+		const filterText = notes.filter((note) => {
+			const searchTitle =
+				optSearch === 'searchTitle'
+					? note.title
+					: note.title + note.body;
+			return searchTitle.toLowerCase().includes(strSearch.toLowerCase());
+		});
 
-		let filterView = filterSearch;
-		if (this.state.view == 'isArchived') filterView = filterSearch.filter((note) => note.archived == true);
-		if (this.state.view == 'isNotArchived') filterView = filterSearch.filter((note) => note.archived == false);
+		const filterView =
+			optArchived === 'active'
+				? filterText.filter((note) => !note.archived)
+				: optArchived === 'archive'
+					? filterText.filter((note) => note.archived)
+					: filterText;
 
 		return filterView;
 	}
@@ -48,8 +59,8 @@ class App extends React.Component {
 		const notes = this.state.notes.map((note) => {
 			if (note.id == id) {
 				note = { ...note, archived: !note.archived };
-
-				if (note.archived == true) alertify.success('Catatan dipindahkan ke arsip');
+				if (note.archived == true)
+					alertify.success('Catatan dipindahkan ke arsip');
 				else alertify.success('Catatan dihapus dari arsip');
 			}
 			return note;
@@ -57,12 +68,16 @@ class App extends React.Component {
 		this.setState({ notes });
 	}
 
-	onChangeView(e) {
-		this.setState({ view: e.target.id });
+	onChangeOptionArchived(e) {
+		this.setState({ optArchived: e.target.value });
 	}
 
 	onChangeSearch(e) {
 		this.setState({ strSearch: e.target.value });
+	}
+
+	onChangeOptionSearch(e) {
+		this.setState({ optSearch: e.target.value });
 	}
 
 	onReset() {
@@ -78,7 +93,7 @@ class App extends React.Component {
 				this.setState({ notes });
 				alertify.success('Catatan berhasil dihapus!');
 			},
-			() => {}
+			() => {},
 		);
 	}
 
@@ -100,8 +115,10 @@ class App extends React.Component {
 		this.setState({ showModal: false });
 		alertify.success('Catatan berhasil dibuat!');
 
-		if (this.state.view == 'isArchived') {
-			alertify.notify('Disimpan sebagai catatan aktif.<br/>Ubah tampilan untuk melihat catatan yang baru dibuat!');
+		if (this.state.optArchived == 'archive') {
+			alertify.notify(
+				'Disimpan sebagai catatan aktif.<br/>Ubah tampilan untuk melihat catatan yang baru dibuat!',
+			);
 		}
 	}
 
@@ -111,15 +128,28 @@ class App extends React.Component {
 				<header>
 					<TitleApp>Aplikasi Catatan Pribadi</TitleApp>
 				</header>
-				<main className='container'>
-						<InputSearch strSearch={this.state.strSearch} onReset={this.onReset} onChangeSearch={this.onChangeSearch} />
-						<SelectView changeView={this.onChangeView} />
-						<ButtonAdd handleShowModal={this.handleShowModal} />
-						<ListContainer notes={this.filteredNotes()} toggleArchived={this.toggleArchived} onDelete={this.onDelete} />
-						<ModalForm stateModal={this.state.showModal} hideModal={this.handleHideModal} addNote={this.handleAddNote} />
+				<main className="container">
+					<InputSearch
+						strSearch={this.state.strSearch}
+						onReset={this.onReset}
+						onChangeSearch={this.onChangeSearch}
+						optSearch={this.onChangeOptionSearch}
+					/>
+					<FilterArchive optArchived={this.onChangeOptionArchived} />
+					<ButtonAdd handleShowModal={this.handleShowModal} />
+					<ListContainer
+						notes={this.filteredNotes()}
+						toggleArchived={this.toggleArchived}
+						onDelete={this.onDelete}
+					/>
+					<ModalForm
+						stateModal={this.state.showModal}
+						hideModal={this.handleHideModal}
+						addNote={this.handleAddNote}
+					/>
 				</main>
-				<footer className='p-1 bg-dark'>
-					<p className='m-0 text-light text-center'>by oets</p>
+				<footer className="p-1 bg-dark">
+					<p className="m-0 text-light text-center">by oets</p>
 				</footer>
 			</>
 		);
