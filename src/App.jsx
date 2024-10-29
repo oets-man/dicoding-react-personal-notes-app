@@ -37,7 +37,7 @@ class App extends React.Component {
 
 	filteredNotes() {
 		const { notes, strSearch, optSearch, optArchived } = this.state;
-		const filterText = notes.filter((note) => {
+		const filterSearch = notes.filter((note) => {
 			const searchTitle =
 				optSearch === 'searchTitle'
 					? note.title
@@ -45,14 +45,14 @@ class App extends React.Component {
 			return searchTitle.toLowerCase().includes(strSearch.toLowerCase());
 		});
 
-		const filterView =
+		const filterArchive =
 			optArchived === 'active'
-				? filterText.filter((note) => !note.archived)
+				? filterSearch.filter((note) => !note.archived)
 				: optArchived === 'archive'
-					? filterText.filter((note) => note.archived)
-					: filterText;
+					? filterSearch.filter((note) => note.archived)
+					: filterSearch;
 
-		return filterView;
+		return filterArchive;
 	}
 
 	toggleArchived(id) {

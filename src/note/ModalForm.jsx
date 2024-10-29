@@ -41,7 +41,7 @@ class ModalForm extends Component {
 		}
 
 		const id = +new Date();
-		const createdAt = new Date();
+		const createdAt = new Date().toISOString();
 		const archived = false;
 		this.props.addNote({ id, title, body, createdAt, archived });
 
