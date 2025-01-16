@@ -1,6 +1,3 @@
-/* eslint-disable react/prop-types */
-// eslint-disable-next-line no-unused-vars
-import React from 'react';
 import OptionsCheck from './OptionsCheck';
 
 export default function FilterArchive({ optArchived }) {
@@ -10,12 +7,9 @@ export default function FilterArchive({ optArchived }) {
 		{ value: 'archive', label: 'Arsip', defaultChecked: false },
 	];
 	return (
-		<div className="mt-3">
-			<div
-				className="card col-sm-12 col-md-6 col-lg-4 mx-auto py-2"
-				style={{ minWidth: '375px' }}
-			>
-				<p className="text-center fw-bold m-0">Tampilkan Catatan</p>
+		<div className='mt-3'>
+			<div className='py-2 mx-auto card col-sm-12 col-md-6 col-lg-4' style={{ minWidth: '375px' }}>
+				<p className='m-0 text-center fw-bold'>Tampilkan Catatan</p>
 				<OptionsCheck onChange={optArchived} options={options} />
 			</div>
 		</div>

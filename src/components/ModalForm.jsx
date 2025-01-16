@@ -1,7 +1,4 @@
-/* eslint-disable react/prop-types */
-// eslint-disable-next-line no-unused-vars
-import React, { Component } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Component } from 'react';
 import alertify from 'alertifyjs';
 
 const TITLE_COUNTER = 50;
@@ -77,52 +74,36 @@ class ModalForm extends Component {
 	}
 
 	render() {
-		const { hideModal, stateModal } = this.props;
 		return (
-			<Modal show={stateModal} onHide={hideModal}>
-				<Form onSubmit={this.onSubmit}>
-					<Modal.Header closeButton>
-						<Modal.Title>Buat Catatan Baru</Modal.Title>
-					</Modal.Header>
-					<Modal.Body>
-						<Form.Group className="mb-3">
-							<Form.Label>Judul</Form.Label>
-							<Form.Control
-								type="text"
-								placeholder="Judul catatan"
-								value={this.state.title}
-								onChange={this.onTitleChange}
-							/>
-							<div className="text-end">
-								<small>{this.state.titleCounter}</small>
-							</div>
-						</Form.Group>
-						<Form.Group className="mb-3">
-							<Form.Label>Catatan</Form.Label>
-							<Form.Control
-								as="textarea"
-								rows={3}
-								value={this.state.body}
-								onChange={this.onBodyChange}
-							/>
-							<div className="text-end">
-								<small>{this.state.bodyCounter}</small>
-							</div>
-						</Form.Group>
-					</Modal.Body>
-					<Modal.Footer>
-						<Button variant="primary" onClick={this.onReset}>
-							Reset
-						</Button>
-						<Button variant="secondary" onClick={hideModal}>
-							Tutup
-						</Button>
-						<Button variant="success" type="submit">
-							Simpan
-						</Button>
-					</Modal.Footer>
-				</Form>
-			</Modal>
+			<div>
+				<form onSubmit={this.onSubmit}>
+					<div>
+						<div>Buat Catatan Baru</div>
+					</div>
+					<div>
+						<label>Judul</label>
+						<input
+							type='text'
+							placeholder='Judul catatan'
+							value={this.state.title}
+							onChange={this.onTitleChange}
+						/>
+						<div className='text-end'>
+							<small>{this.state.titleCounter}</small>
+						</div>
+						<label>Catatan</label>
+						<input rows={3} value={this.state.body} onChange={this.onBodyChange} />
+						<div className='text-end'>
+							<small>{this.state.bodyCounter}</small>
+						</div>
+					</div>
+					<div>
+						<button onClick={this.onReset}>Reset</button>
+						<button onClick={null}>Tutup</button>
+						<button type='submit'>Simpan</button>
+					</div>
+				</form>
+			</div>
 		);
 	}
 }
