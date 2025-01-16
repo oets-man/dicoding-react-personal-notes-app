@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { archiveNote, deleteNote, getNote, unarchiveNote } from '../utils/local-data';
+import { deleteNote, getNote } from '../utils/local-data';
 import NotFound from '../components/NotFound';
 import ListItems from '../components/ListItems';
 import alertify from 'alertifyjs';
@@ -10,26 +10,22 @@ function DetailPage() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const [note, setNote] = useState(getNote(id));
-	const onToggleArchived = (id) => {
-		const note = getNote(id);
-		note.archived ? unarchiveNote(id) : archiveNote(id);
-		note.archived != true
-			? alertify.success('Catatan dipindahkan ke arsip')
-			: alertify.success('Catatan dihapus dari arsip');
-		setNote(getNote(id));
-	};
 
 	const handleEdit = () => {
-		navigate(`/notes/${id}/edit`);
+		navigate(`/notes/${note.id}/edit`);
 	};
 
 	const handleDelete = () => {
-		const confirmed = window.confirm('Apakah Anda yakin akan menghapus catatan ini?');
-		if (!confirmed) return;
-
-		deleteNote(id);
-		alertify.success('Catatan berhasil dihapus');
-		navigate('/');
+		alertify.confirm(
+			'Konfirmasi',
+			'Apakah Anda yakin akan menghapus catatan ini?',
+			() => {
+				deleteNote(note.id);
+				alertify.success('Catatan berhasil dihapus');
+				navigate('/');
+			},
+			() => alertify.warning('Catatan gagal dihapus'),
+		);
 	};
 
 	const buttons = () => (
@@ -47,7 +43,7 @@ function DetailPage() {
 		<div>
 			{note ? (
 				<div className='max-w-4xl mx-auto'>
-					<ListItems {...note} onToggleArchived={onToggleArchived} Component={buttons}></ListItems>
+					<ListItems {...note} onUpdate={() => setNote(getNote(note.id))} Component={buttons}></ListItems>
 				</div>
 			) : (
 				<NotFound>Catatan tidak temukan</NotFound>

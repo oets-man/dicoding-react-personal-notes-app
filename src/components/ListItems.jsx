@@ -3,8 +3,19 @@ import showFormattedDate from '../utils/format-date';
 import { Field, Label, Switch } from '@headlessui/react';
 import PropTypes from 'prop-types';
 import parser from 'html-react-parser';
+import { archiveNote, getNote, unarchiveNote } from '../utils/local-data';
+import alertify from 'alertifyjs';
 
-function ListItems({ title, body, createdAt, archived, onToggleArchived, id, Component }) {
+function ListItems({ title, body, createdAt, archived, onUpdate, id, Component }) {
+	const onChange = () => {
+		const note = getNote(id);
+		note.archived ? unarchiveNote(id) : archiveNote(id);
+		note.archived != true
+			? alertify.success('Catatan dipindahkan ke arsip')
+			: alertify.success('Catatan dihapus dari arsip');
+		onUpdate();
+	};
+
 	return (
 		<div className='overflow-hidden border rounded-lg shadow-md border-slate-200'>
 			<div className='flex items-center justify-between bg-slate-400 text-slate-800'>
@@ -23,7 +34,7 @@ function ListItems({ title, body, createdAt, archived, onToggleArchived, id, Com
 					<div className='flex items-center h-6'>
 						<Switch
 							checked={archived}
-							onChange={() => onToggleArchived(id)}
+							onChange={onChange}
 							className='group flex w-8 flex-none cursor-pointer rounded-full bg-slate-200 p-px ring-1 ring-inset ring-slate-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600 data-[checked]:bg-slate-600'
 						>
 							<span className='sr-only'>Arsipkan</span>
@@ -49,8 +60,8 @@ ListItems.propTypes = {
 	createdAt: PropTypes.string.isRequired,
 	archived: PropTypes.bool.isRequired,
 	id: PropTypes.string.isRequired,
-	onToggleArchived: PropTypes.func.isRequired,
 	Component: PropTypes.elementType,
+	onUpdate: PropTypes.func.isRequired,
 };
 
 export default ListItems;

@@ -2,11 +2,11 @@ import { ButtonNormal } from './Buttons';
 import OptionsCheck from './OptionsCheck';
 import PropTypes from 'prop-types';
 
-function InputSearch({ strSearch, onChangeSearch, onReset, onChangeOption }) {
+function InputSearch({ search, onSearch, onReset, onChangeOption }) {
 	const options = [
-		{ value: 'searchTitle', label: 'Judul', defaultChecked: true },
-		{ value: 'searchBody', label: 'Isi', defaultChecked: false },
-		{ value: 'searchAll', label: 'Semua', defaultChecked: false },
+		{ value: 'title', label: 'Judul', defaultChecked: search.option === 'title' },
+		{ value: 'body', label: 'Isi', defaultChecked: search.option === 'body' },
+		{ value: 'any', label: 'Semua', defaultChecked: search.option === 'any' },
 	];
 
 	return (
@@ -17,8 +17,8 @@ function InputSearch({ strSearch, onChangeSearch, onReset, onChangeOption }) {
 					placeholder='Masukkan teks pencarian'
 					aria-label='Masukkan teks pencarian'
 					aria-describedby='pencarian'
-					value={strSearch}
-					onChange={onChangeSearch}
+					value={search.text}
+					onChange={onSearch}
 				/>
 				<ButtonNormal onClick={onReset} iconName='carbon:reset'>
 					Reset
@@ -30,10 +30,13 @@ function InputSearch({ strSearch, onChangeSearch, onReset, onChangeOption }) {
 }
 
 InputSearch.propTypes = {
-	strSearch: PropTypes.string.isRequired,
-	onChangeSearch: PropTypes.func.isRequired,
+	onSearch: PropTypes.func.isRequired,
 	onReset: PropTypes.func.isRequired,
 	onChangeOption: PropTypes.func.isRequired,
+	search: PropTypes.shape({
+		option: PropTypes.string.isRequired,
+		text: PropTypes.string.isRequired,
+	}),
 };
 
 export default InputSearch;

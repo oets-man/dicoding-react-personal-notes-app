@@ -2,14 +2,14 @@ import PropTypes from 'prop-types';
 import ListItems from './ListItems';
 import NotFound from './NotFound';
 
-function ListContainer({ notes, onToggleArchived }) {
+function ListContainer({ notes, onUpdate }) {
 	if (notes.length) {
 		return (
 			<div className='container mx-auto'>
 				<div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
 					{notes.map((note) => (
 						<div key={note.id} className=''>
-							<ListItems {...note} onToggleArchived={onToggleArchived} />
+							<ListItems {...note} onUpdate={onUpdate} />
 						</div>
 					))}
 				</div>
@@ -30,7 +30,7 @@ ListContainer.propTypes = {
 			archived: PropTypes.bool.isRequired,
 		}),
 	).isRequired,
-	onToggleArchived: PropTypes.func.isRequired,
+	onUpdate: PropTypes.func.isRequired,
 };
 
 export default ListContainer;

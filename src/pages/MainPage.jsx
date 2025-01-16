@@ -1,18 +1,11 @@
 import { useState } from 'react';
-import {
-	getAllNotes,
-	getActiveNotes,
-	getArchivedNotes,
-	getNote,
-	unarchiveNote,
-	archiveNote,
-} from '../utils/local-data';
-import alertify from 'alertifyjs';
+import { getAllNotes, getActiveNotes, getArchivedNotes } from '../utils/local-data';
 import 'alertifyjs/build/css/alertify.css';
 import 'alertifyjs/build/css/themes/default.min.css';
 import InputSearch from '../components/InputSearch';
 import ListContainer from '../components/ListContainer';
 import PropTypes from 'prop-types';
+import { useSearchParams } from 'react-router-dom';
 
 const MainPage = ({ status }) => {
 	const getNotes = () => {
@@ -23,60 +16,62 @@ const MainPage = ({ status }) => {
 		}
 		return getAllNotes();
 	};
-
 	const [notes, setNotes] = useState(getNotes());
-	const [optSearch, setOptSearch] = useState('searchTitle');
-	const [strSearch, setStrSearch] = useState('');
+	const [searchParams, setSearchParams] = useSearchParams();
 
-	const filteredNotes = () => {
-		switch (optSearch) {
-			case 'searchTitle':
-				return notes.filter((note) => note.title.toLowerCase().includes(strSearch.toLowerCase()));
-			case 'searchBody':
-				return notes.filter((note) => note.body.toLowerCase().includes(strSearch.toLowerCase()));
-			case 'searchAll':
-				return notes.filter(
-					(note) =>
-						note.title.toLowerCase().includes(strSearch.toLowerCase()) ||
-						note.body.toLowerCase().includes(strSearch.toLowerCase()),
-				);
+	const initSearch = () => {
+		const title = searchParams.get('title');
+		const body = searchParams.get('body');
+		const any = searchParams.get('any');
 
-			default:
-				return notes;
-		}
+		if (title) return { option: 'title', text: title };
+		if (body) return { option: 'body', text: body };
+		if (any) return { option: 'any', text: any };
+		return { option: 'title', text: '' };
 	};
 
-	const onToggleArchived = (id) => {
-		const note = getNote(id);
-		note.archived ? unarchiveNote(id) : archiveNote(id);
-		note.archived != true
-			? alertify.success('Catatan dipindahkan ke arsip')
-			: alertify.success('Catatan dihapus dari arsip');
-		setNotes(getNotes());
-	};
+	const [search, setSearch] = useState(initSearch());
 
-	const onChangeSearch = (e) => {
-		setStrSearch(e.target.value);
-	};
-
-	const onReset = () => {
-		setStrSearch('');
+	const onSearch = (e) => {
+		const keyword = e.target.value;
+		setSearchParams({ [search.option]: keyword });
+		setSearch((prev) => ({ ...prev, text: keyword }));
 	};
 
 	const onChangeOption = (e) => {
-		setOptSearch(e.target.value);
+		const option = e.target.value;
+		setSearchParams({ [option]: search.text });
+		setSearch((prev) => ({ option, text: prev.text }));
+	};
+
+	const onReset = () => {
+		setSearchParams({ [search.option]: '' });
+		setSearch((prev) => ({ option: prev.option, text: '' }));
+	};
+
+	const filteredNotes = () => {
+		const searchText = search.text?.toLowerCase();
+		return notes.filter((note) => {
+			switch (search.option) {
+				case 'title':
+					return note.title.toLowerCase().includes(searchText);
+				case 'body':
+					return note.body.toLowerCase().includes(searchText);
+				case 'any':
+					return (
+						note.title.toLowerCase().includes(searchText) || note.body.toLowerCase().includes(searchText)
+					);
+				default:
+					return true;
+			}
+		});
 	};
 
 	return (
 		<div>
 			<main className='container mx-auto'>
-				<InputSearch
-					onReset={onReset}
-					onChangeSearch={onChangeSearch}
-					onChangeOption={onChangeOption}
-					strSearch={strSearch}
-				/>
-				<ListContainer notes={filteredNotes()} onToggleArchived={onToggleArchived} />
+				<InputSearch onReset={onReset} onSearch={onSearch} onChangeOption={onChangeOption} search={search} />
+				<ListContainer notes={filteredNotes()} onUpdate={() => setNotes(getNotes())} />
 			</main>
 		</div>
 	);
