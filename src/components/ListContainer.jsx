@@ -1,22 +1,36 @@
+import PropTypes from 'prop-types';
 import ListItems from './ListItems';
+import NotFound from './NotFound';
 
-export default function ListContainer({ notes, toggleArchived, onDelete }) {
+function ListContainer({ notes, onToggleArchived }) {
 	if (notes.length) {
 		return (
-			<div>
-				{notes.map((note) => (
-					<div key={note.id} className='p-2'>
-						<ListItems {...note} toggleArchived={toggleArchived} onDelete={onDelete} />
-					</div>
-				))}
+			<div className='container mx-auto'>
+				<div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+					{notes.map((note) => (
+						<div key={note.id} className=''>
+							<ListItems {...note} onToggleArchived={onToggleArchived} />
+						</div>
+					))}
+				</div>
 			</div>
 		);
 	} else {
-		return (
-			<div className='text-center'>
-				<p className='m-0  fw-bold'>Tidak ada data untuk ditampilkan!</p>
-				<p className='m-0 fst-italic'>Buat baru, ubah tampilan, atau coba kata kunci yang lain!</p>
-			</div>
-		);
+		return <NotFound>Tidak ada data untuk ditampilkan!</NotFound>;
 	}
 }
+
+ListContainer.propTypes = {
+	notes: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.string.isRequired,
+			title: PropTypes.string.isRequired,
+			body: PropTypes.string.isRequired,
+			createdAt: PropTypes.string.isRequired,
+			archived: PropTypes.bool.isRequired,
+		}),
+	).isRequired,
+	onToggleArchived: PropTypes.func.isRequired,
+};
+
+export default ListContainer;
