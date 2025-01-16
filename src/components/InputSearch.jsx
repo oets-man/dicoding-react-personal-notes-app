@@ -10,21 +10,29 @@ function InputSearch({ search, onSearch, onReset, onChangeOption }) {
 	];
 
 	return (
-		<div className='p-2 mx-auto bg-slate-200 rounded-lg max-w-[500px] mb-4 border-slate-300 border'>
-			<div className='flex'>
+		<div className='grid grid-cols-5 grid-rows-2 bg-slate-200 rounded-lg max-w-xl mb-4 border-slate-300 border mx-auto'>
+			<div className='col-span-4 row-span-1 py-2 pl-2'>
 				<input
-					className='w-full p-2 rounded-md'
+					className='p-2 rounded-md w-full focus:ring-1 focus:ring-slate-500'
 					placeholder='Masukkan teks pencarian'
 					aria-label='Masukkan teks pencarian'
 					aria-describedby='pencarian'
 					value={search.text}
 					onChange={onSearch}
 				/>
-				<ButtonNormal onClick={onReset} iconName='carbon:reset'>
-					Reset
-				</ButtonNormal>
 			</div>
-			<OptionsCheck onChange={onChangeOption} options={options} />
+
+			<div className='col-span-1 row-span-1 relative'>
+				<div className='absolute right-0'>
+					<ButtonNormal onClick={onReset} iconName='carbon:reset'>
+						Reset
+					</ButtonNormal>
+				</div>
+			</div>
+
+			<div className='col-span-4 row-span-1 pl-2 mt-2'>
+				<OptionsCheck onChange={onChangeOption} options={options} />
+			</div>
 		</div>
 	);
 }

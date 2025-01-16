@@ -37,14 +37,14 @@ function ListItems({ title, body, createdAt, archived, onUpdate, id, Component }
 							onChange={onChange}
 							className='group flex w-8 flex-none cursor-pointer rounded-full bg-slate-200 p-px ring-1 ring-inset ring-slate-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600 data-[checked]:bg-slate-600'
 						>
-							<span className='sr-only'>Arsipkan</span>
+							<span className='sr-only'>Arsip</span>
 							<span
 								aria-hidden='true'
 								className='size-4 transform rounded-full bg-white shadow-sm ring-1 ring-slate-900/5 transition duration-200 ease-in-out group-data-[checked]:translate-x-3.5'
 							/>
 						</Switch>
 					</div>
-					<Label className='text-slate-700 text-sm/6'>Arsipkan!</Label>
+					<Label className='text-slate-700 text-sm/6'>Arsip</Label>
 				</Field>
 				<div className='italic font-light text-slate-700'>
 					<small> &mdash; dibuat: {showFormattedDate(createdAt)}</small>

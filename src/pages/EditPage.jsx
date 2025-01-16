@@ -30,9 +30,8 @@ function EditPage() {
 	return (
 		<div>
 			{note ? (
-				<div className='container mx-auto'>
+				<div className='max-w-4xl mx-auto'>
 					<div className='overflow-hidden border rounded-lg shadow-md border-slate-200'>
-						{/* card header */}
 						<div className='p-2 text-xl bg-slate-400 text-slate-800'>Edit Catatan</div>
 						<NoteForm note={note} setNote={setNote} handleSubmit={handleSubmit} handleReset={handleReset} />
 					</div>
