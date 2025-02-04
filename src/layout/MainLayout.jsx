@@ -33,7 +33,9 @@ export default function MainLayout() {
 			</main>
 			<footer className='fixed inset-x-0 bottom-0 w-full px-4 py-1 text-sm bg-gray-600 text-slate-100'>
 				<p className='m-0 text-center'>
-					<a href='https://github.com/idsantri'>by oets</a>
+					<a href='https://github.com/idsantri' target='_blank'>
+						by oets
+					</a>
 				</p>
 			</footer>
 		</>
