@@ -23,7 +23,6 @@ function DetailPage() {
 	}, [id]);
 
 	const handleEdit = () => {
-		// navigate(`/notes/${note.id}/edit`);
 		alertify.error('Fitur (API) belum tersedia');
 	};
 
