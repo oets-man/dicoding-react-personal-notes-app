@@ -1,16 +1,18 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import InputField from '../components/InputField';
 import useInput from '../hooks/use-input';
 import { ButtonNormal } from '../components/Buttons';
 import { useState } from 'react';
-import { login, putAccessToken } from '../utils/api';
+import { login as loginRequest } from '../utils/api';
+import useAuth from '../hooks/use-auth';
+import alertify from 'alertifyjs';
 
 function LoginPage() {
 	const [email, onEmailChange] = useInput('');
 	const [password, onPasswordChange] = useInput('');
 	const [error, setError] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const navigate = useNavigate();
+	const { login } = useAuth();
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
@@ -18,12 +20,12 @@ function LoginPage() {
 		setIsLoading(true);
 
 		try {
-			const response = await login({ email, password });
+			const response = await loginRequest({ email, password });
 			if (!response || response.error) {
 				setError(response.message || 'Login gagal');
 			} else {
-				putAccessToken(response.data.accessToken);
-				navigate('/');
+				alertify.success('Selamat datang kembali');
+				login(response.data.accessToken);
 			}
 		} catch (err) {
 			setError(err.message || 'Terjadi kesalahan saat login');
@@ -32,7 +34,6 @@ function LoginPage() {
 		}
 	};
 
-	// TODO: add required
 	return (
 		<>
 			<h2 className='p-2 text-xl text-center text-slate-800'>Login</h2>
@@ -46,6 +47,7 @@ function LoginPage() {
 					value={email}
 					onChange={onEmailChange}
 					id='email'
+					required
 				/>
 				<InputField
 					label='Kata Sandi'
@@ -55,6 +57,7 @@ function LoginPage() {
 					value={password}
 					onChange={onPasswordChange}
 					id='password'
+					required
 				/>
 				<ButtonNormal type='submit' disabled={isLoading}>
 					{isLoading ? 'Memproses...' : 'Masuk'}

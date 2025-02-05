@@ -46,7 +46,6 @@ function RegisterPage() {
 		}
 	};
 
-	// TODO: add required
 	return (
 		<>
 			<h2 className='p-2 text-xl text-center text-slate-800'>Registrasi</h2>
@@ -60,6 +59,7 @@ function RegisterPage() {
 					value={name}
 					onChange={onNameChange}
 					id='name'
+					required
 				/>
 				<InputField
 					label='Email'
@@ -69,6 +69,7 @@ function RegisterPage() {
 					value={email}
 					onChange={onEmailChange}
 					id='email'
+					required
 				/>
 				<InputField
 					label='Kata Sandi'
@@ -78,6 +79,7 @@ function RegisterPage() {
 					value={password}
 					onChange={onPasswordChange}
 					id='password'
+					required
 				/>
 				<InputField
 					label='Konfirmasi Kata Sandi'
@@ -87,6 +89,7 @@ function RegisterPage() {
 					value={confirmPassword}
 					onChange={onConfirmPasswordChange}
 					id='confirm-password'
+					required
 				/>
 				<ButtonNormal type='submit' disabled={isLoading}>
 					{isLoading ? 'Memproses...' : 'Daftar'}

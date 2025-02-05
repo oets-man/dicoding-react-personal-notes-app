@@ -1,8 +1,12 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import useAuth from '../hooks/use-auth';
 
 function AuthLayout() {
-	const location = useLocation();
-	console.log(location.pathname.includes('login'));
+	const { isAuthenticated } = useAuth();
+	if (isAuthenticated) {
+		return <Navigate to='/' replace />;
+	}
+
 	return (
 		<div className='absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'>
 			<div className='w-full overflow-hidden border rounded-md min-w-96 border-slate-300'>
