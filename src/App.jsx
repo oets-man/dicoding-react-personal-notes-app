@@ -18,9 +18,8 @@ const App = () => {
 					<Route path='register' element={<RegisterPage />} />
 				</Route>
 				<Route element={<MainLayout />}>
-					<Route path='/' element={<MainPage.All />} />
+					<Route path='/' element={<MainPage.Active />} />
 					<Route path='archive' element={<MainPage.Archive />} />
-					<Route path='active' element={<MainPage.Active />} />
 					<Route path='add' element={<AddPage />} />
 					<Route path='notes/:id' element={<DetailPage />} />
 					<Route path='notes/:id/edit' element={<EditPage />} />

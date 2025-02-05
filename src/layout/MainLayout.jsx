@@ -26,8 +26,7 @@ export default function MainLayout() {
 					<div className='flex items-center'>
 						<nav className=''>
 							<ul className='flex items-center'>
-								<NavigationLink to={'/'}>Semua</NavigationLink>
-								<NavigationLink to={'/active'}>Aktif</NavigationLink>
+								<NavigationLink to={'/'}>Aktif</NavigationLink>
 								<NavigationLink to={'/archive'}>Arsip</NavigationLink>
 							</ul>
 						</nav>

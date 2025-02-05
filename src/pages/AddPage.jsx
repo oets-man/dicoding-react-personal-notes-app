@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { addNote } from '../utils/local-data';
 import { useState } from 'react';
 import alertify from 'alertifyjs';
 import NoteForm from '../components/NoteForm';
+import { addNote } from '../utils/api';
 
 function AddPage() {
 	const initNote = {
@@ -13,15 +13,15 @@ function AddPage() {
 	const [note, setNote] = useState(initNote);
 	const navigate = useNavigate();
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (!note.body || !note.title) {
 			return alertify.error('Judul dan catatan tidak boleh kosong');
 		}
 
-		const { id } = addNote(note);
+		const response = await addNote(note);
 		alertify.success('Catatan berhasil ditambahkan');
-		navigate(`/notes/${id}`);
+		navigate(`/notes/${response.data.id}`);
 	};
 
 	const handleReset = (e) => {

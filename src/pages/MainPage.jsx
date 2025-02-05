@@ -1,23 +1,32 @@
-import { useState } from 'react';
-import { getAllNotes, getActiveNotes, getArchivedNotes } from '../utils/local-data';
+import { useEffect, useState } from 'react';
 import 'alertifyjs/build/css/alertify.css';
 import 'alertifyjs/build/css/themes/default.min.css';
 import InputSearch from '../components/InputSearch';
 import ListContainer from '../components/ListContainer';
 import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router-dom';
+import { getActiveNotes, getArchivedNotes } from '../utils/api';
 
 const MainPage = ({ status }) => {
-	const getNotes = () => {
-		if (status === 'active') {
-			return getActiveNotes();
-		} else if (status === 'archive') {
-			return getArchivedNotes();
-		}
-		return getAllNotes();
-	};
-	const [notes, setNotes] = useState(getNotes());
+	const [isLoading, setIsLoading] = useState(true);
 	const [searchParams, setSearchParams] = useSearchParams();
+	const [notes, setNotes] = useState([]);
+	const [rerender, setRerender] = useState(false);
+
+	useEffect(() => {
+		setIsLoading(true);
+		if (status === 'archive') {
+			getArchivedNotes().then(({ data }) => {
+				setNotes(data);
+				setIsLoading(false);
+			});
+		} else {
+			getActiveNotes().then(({ data }) => {
+				setNotes(data);
+				setIsLoading(false);
+			});
+		}
+	}, [status, rerender]);
 
 	const initSearch = () => {
 		const title = searchParams.get('title');
@@ -70,8 +79,26 @@ const MainPage = ({ status }) => {
 	return (
 		<div>
 			<main className='container mx-auto'>
-				<InputSearch onReset={onReset} onSearch={onSearch} onChangeOption={onChangeOption} search={search} />
-				<ListContainer notes={filteredNotes()} onUpdate={() => setNotes(getNotes())} />
+				{isLoading ? (
+					<p>Loading...</p>
+				) : notes.length === 0 ? (
+					<p>Tidak ada data untuk ditampilkan!</p>
+				) : (
+					<>
+						<InputSearch
+							onReset={onReset}
+							onSearch={onSearch}
+							onChangeOption={onChangeOption}
+							search={search}
+						/>
+						<ListContainer
+							notes={filteredNotes()}
+							onUpdate={() => {
+								setRerender((prev) => !prev);
+							}}
+						/>
+					</>
+				)}
 			</main>
 		</div>
 	);
@@ -81,7 +108,6 @@ MainPage.propTypes = {
 	status: PropTypes.oneOf(['all', 'active', 'archive']),
 };
 
-MainPage.All = () => MainPage({ status: 'all' });
 MainPage.Active = () => MainPage({ status: 'active' });
 MainPage.Archive = () => MainPage({ status: 'archive' });
 

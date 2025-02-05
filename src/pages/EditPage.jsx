@@ -1,9 +1,23 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { editNote, getNote } from '../utils/local-data';
 import NotFound from '../components/NotFound';
 import { useState } from 'react';
 import alertify from 'alertifyjs';
 import NoteForm from '../components/NoteForm';
+
+/**
+ * @throws Fitur (API) belum tersedia
+ *
+ * @description
+ * - Halaman untuk mengedit catatan
+ * - Sisa submission sebelumnya
+ *
+ * @note
+ * - API belum tersedia
+ * - Tidak perlu ditinjau
+ *
+ * @returns Navigate to Page Detail
+ */
 
 function EditPage() {
 	const { id } = useParams();
@@ -29,6 +43,11 @@ function EditPage() {
 
 	return (
 		<div>
+			{/*
+				Always redirect to note
+				API belum tersedia
+			*/}
+			<Navigate to={`/notes/${id}`} />
 			{note ? (
 				<div className='max-w-4xl mx-auto'>
 					<div className='overflow-hidden border rounded-lg shadow-md border-slate-200'>

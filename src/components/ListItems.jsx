@@ -2,18 +2,23 @@ import { Link } from 'react-router-dom';
 import showFormattedDate from '../utils/format-date';
 import PropTypes from 'prop-types';
 import parser from 'html-react-parser';
-import { archiveNote, getNote, unarchiveNote } from '../utils/local-data';
 import alertify from 'alertifyjs';
 import SwitchField from './SwitchField';
+import { archiveNote, unarchiveNote } from '../utils/api';
 
 function ListItems({ title, body, createdAt, archived, onUpdate, id, Component }) {
-	const onChange = () => {
-		const note = getNote(id);
-		note.archived ? unarchiveNote(id) : archiveNote(id);
-		note.archived != true
-			? alertify.success('Catatan dipindahkan ke arsip')
-			: alertify.success('Catatan dihapus dari arsip');
-		onUpdate();
+	const onChange = async () => {
+		if (archived) {
+			const { error } = await unarchiveNote(id);
+			if (error) return alertify.error(error);
+			alertify.success('Catatan dihapus dari arsip');
+			return onUpdate();
+		} else {
+			const { error } = await archiveNote(id);
+			if (error) return alertify.error(error);
+			alertify.success('Catatan dipindahkan ke arsip');
+			return onUpdate();
+		}
 	};
 
 	return (
