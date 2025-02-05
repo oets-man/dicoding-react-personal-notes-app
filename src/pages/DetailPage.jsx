@@ -6,13 +6,14 @@ import { useEffect, useState } from 'react';
 import { ButtonDanger, ButtonNormal } from '../components/Buttons';
 import { deleteNote, getNote } from '../utils/api';
 import LoadingSpinner from '../components/LoadingSpinner';
+import useLocale from '../hooks/use-locale';
 
 function DetailPage() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const [note, setNote] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
-
+	const { label } = useLocale();
 	useEffect(() => {
 		setIsLoading(true);
 		getNote(id).then(({ error, data }) => {
@@ -49,10 +50,10 @@ function DetailPage() {
 	const buttons = () => (
 		<div className='flex'>
 			<ButtonNormal onClick={handleEdit} iconName='material-symbols:edit'>
-				Edit
+				{label.edit}
 			</ButtonNormal>
 			<ButtonDanger onClick={handleDelete} iconName='weui:delete-outlined'>
-				Hapus
+				{label.delete}
 			</ButtonDanger>
 		</div>
 	);

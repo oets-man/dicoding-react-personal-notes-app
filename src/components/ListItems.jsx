@@ -6,9 +6,11 @@ import alertify from 'alertifyjs';
 import SwitchField from './SwitchField';
 import { archiveNote, unarchiveNote } from '../utils/api';
 import { useState } from 'react';
+import useLocale from '../hooks/use-locale';
 
 function ListItems({ title, body, createdAt, archived, onUpdate, id, Component }) {
 	const [check, setCheck] = useState(archived);
+	const { label } = useLocale();
 
 	const onChange = async () => {
 		setCheck(!check);
@@ -45,9 +47,11 @@ function ListItems({ title, body, createdAt, archived, onUpdate, id, Component }
 				<div className='font-light text-justify'>{parser(body)}</div>
 			</div>
 			<div className='flex justify-between p-2 bg-slate-300'>
-				<SwitchField label='Arsip' checked={check} onChange={onChange} />
+				<SwitchField label={label.archive} checked={check} onChange={onChange} />
 				<div className='italic font-light text-slate-700'>
-					<small> &mdash; dibuat: {showFormattedDate(createdAt)}</small>
+					<small>
+						&mdash; {label.createdAt} {showFormattedDate(createdAt, label.locale)}
+					</small>
 				</div>
 			</div>
 		</div>

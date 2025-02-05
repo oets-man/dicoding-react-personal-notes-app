@@ -15,12 +15,14 @@ import {
 	Toolbar,
 } from 'react-simple-wysiwyg';
 import InputField from './InputField';
+import useLocale from '../hooks/use-locale';
 
 function NoteForm({ note, setNote, handleSubmit, handleReset }) {
+	const { label } = useLocale();
 	return (
 		<form onReset={handleReset} onSubmit={handleSubmit}>
 			<InputField
-				label='Judul'
+				label={label.title}
 				id='title'
 				name='title'
 				value={note.title}
@@ -30,7 +32,7 @@ function NoteForm({ note, setNote, handleSubmit, handleReset }) {
 			/>
 
 			<div className='p-2'>
-				<label className='block font-medium text-gray-900 text-sm/6'>Catatan:</label>
+				<label className='block font-medium text-gray-900 text-sm/6'>{label.content}</label>
 				<EditorProvider>
 					<Editor
 						value={note.body}
@@ -56,10 +58,10 @@ function NoteForm({ note, setNote, handleSubmit, handleReset }) {
 
 			<div className='flex p-2 bg-slate-300'>
 				<ButtonDanger iconName='carbon:reset' type='reset'>
-					Reset
+					{label.reset}
 				</ButtonDanger>
 				<ButtonNormal onClick={() => {}} iconName='material-symbols-light:save-outline' type='submit'>
-					Simpan
+					{label.save}
 				</ButtonNormal>
 			</div>
 		</form>

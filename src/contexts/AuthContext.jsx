@@ -36,14 +36,18 @@ export const AuthProvider = ({ children }) => {
 		);
 	};
 
-	const authContextValue = {
-		isAuthenticated,
-		login,
-		logout,
-		user,
-	};
-
-	return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;
+	return (
+		<AuthContext.Provider
+			value={{
+				isAuthenticated,
+				login,
+				logout,
+				user,
+			}}
+		>
+			{children}
+		</AuthContext.Provider>
+	);
 };
 
 AuthProvider.propTypes = {

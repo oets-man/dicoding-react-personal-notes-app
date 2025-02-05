@@ -4,6 +4,7 @@ import alertify from 'alertifyjs';
 import NoteForm from '../components/NoteForm';
 import { addNote } from '../utils/api';
 import LoadingOverlay from '../components/LoadingOverlay';
+import useLocale from '../hooks/use-locale';
 
 function AddPage() {
 	const initNote = {
@@ -15,6 +16,7 @@ function AddPage() {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const navigate = useNavigate();
+	const { label } = useLocale();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -41,7 +43,7 @@ function AddPage() {
 	return (
 		<div className='container mx-auto'>
 			<div className='overflow-hidden border rounded-lg shadow-md border-slate-200'>
-				<div className='p-2 text-xl bg-slate-400 text-slate-800'>Buat Catatan</div>
+				<div className='p-2 text-xl bg-slate-400 text-slate-800'>{label.createNote}</div>
 				<LoadingOverlay isLoading={isLoading} />
 				<NoteForm note={note} setNote={setNote} handleSubmit={handleSubmit} handleReset={handleReset} />
 			</div>
