@@ -48,7 +48,7 @@ function RegisterPage() {
 
 	return (
 		<>
-			<h2 className='p-2 text-xl text-center text-slate-800'>Registrasi</h2>
+			<h2 className='p-2 text-xl text-center text-slate-800 dark:text-slate-200'>Registrasi</h2>
 			{error && <div className='p-2 text-red-500 bg-red-100'>{error}</div>}
 			<form onSubmit={handleRegister}>
 				<InputField
@@ -95,7 +95,7 @@ function RegisterPage() {
 					{isLoading ? 'Memproses...' : 'Daftar'}
 				</ButtonNormal>
 			</form>
-			<p className='p-2 text-sm'>
+			<p className='p-2 text-sm text-slate-950 dark:text-slate-200'>
 				Sudah punya akun?{' '}
 				<Link to={'/login'} className='underline'>
 					Masuk

@@ -43,7 +43,9 @@ function AddPage() {
 	return (
 		<div className='container mx-auto'>
 			<div className='overflow-hidden border rounded-lg shadow-md border-slate-200'>
-				<div className='p-2 text-xl bg-slate-400 text-slate-800'>{label.createNote}</div>
+				<div className='p-2 text-xl bg-slate-400 text-slate-800 dark:bg-slate-800 dark:text-slate-200'>
+					{label.createNote}
+				</div>
 				<LoadingOverlay isLoading={isLoading} />
 				<NoteForm note={note} setNote={setNote} handleSubmit={handleSubmit} handleReset={handleReset} />
 			</div>

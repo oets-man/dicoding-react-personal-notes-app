@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function NavigationLink({ to, children }) {
 	const getClassName = (isActive) =>
-		`text-center px-4 py-3 ${isActive ? 'text-slate-900 font-bold' : 'text-slate-600 font-reguler'} hover:text-slate-50`;
+		`text-center px-4 py-3 ${isActive ? 'text-slate-900 font-bold dark:text-slate-100' : 'text-slate-600 font-reguler dark:text-slate-200 '} hover:text-xl`;
 
 	return (
 		<li>

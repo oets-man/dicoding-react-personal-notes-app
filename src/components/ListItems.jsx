@@ -35,7 +35,7 @@ function ListItems({ title, body, createdAt, archived, onUpdate, id, Component }
 
 	return (
 		<div className='overflow-hidden border rounded-lg shadow-md border-slate-200'>
-			<div className='flex items-center justify-between bg-slate-400 text-slate-800'>
+			<div className='flex items-center justify-between bg-slate-400 text-slate-800 dark:bg-slate-800 dark:text-slate-200'>
 				<div className='p-2 hover:text-slate-500'>
 					<Link to={`/notes/${id}`}>
 						<h2 className='text-lg font-bold'>{title}</h2>
@@ -44,11 +44,11 @@ function ListItems({ title, body, createdAt, archived, onUpdate, id, Component }
 				{Component && <Component />}
 			</div>
 			<div className='p-2'>
-				<div className='font-light text-justify'>{parser(body)}</div>
+				<div className='font-light text-justify dark:text-slate-100'>{parser(body)}</div>
 			</div>
-			<div className='flex justify-between p-2 bg-slate-300'>
+			<div className='flex justify-between p-2 text-slate-700 bg-slate-300 dark:bg-slate-700 dark:text-slate-300'>
 				<SwitchField label={label.archive} checked={check} onChange={onChange} />
-				<div className='italic font-light text-slate-700'>
+				<div className='ml-2 italic font-light'>
 					<small>
 						&mdash; {label.createdAt} {showFormattedDate(createdAt, label.locale)}
 					</small>

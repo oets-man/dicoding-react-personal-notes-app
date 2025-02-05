@@ -8,16 +8,16 @@ function SwitchField({ checked, onChange, label }) {
 				<Switch
 					checked={checked}
 					onChange={onChange}
-					className='group flex w-8 flex-none cursor-pointer rounded-full bg-slate-200 p-px ring-1 ring-inset ring-slate-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600 data-[checked]:bg-slate-600'
+					className='group flex w-8 flex-none cursor-pointer rounded-full bg-slate-200 dark:bg-slate-600 p-px ring-1 ring-inset ring-slate-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600 data-[checked]:bg-slate-600 dark:data-[checked]:bg-slate-100'
 				>
 					<span className='sr-only'>{label}</span>
 					<span
 						aria-hidden='true'
-						className='size-4 transform rounded-full bg-white shadow-sm ring-1 ring-slate-900/5 transition duration-200 ease-in-out group-data-[checked]:translate-x-3.5'
+						className='size-4 transform rounded-full bg-slate-50 dark:bg-slate-900 shadow-sm ring-1 ring-slate-900/5 transition duration-200 ease-in-out group-data-[checked]:translate-x-3.5'
 					/>
 				</Switch>
 			</div>
-			<Label className='text-slate-700 text-sm/6'>{label}</Label>
+			<Label className='text-slate-700 text-sm/6 dark:text-slate-300'>{label}</Label>
 		</Field>
 	);
 }

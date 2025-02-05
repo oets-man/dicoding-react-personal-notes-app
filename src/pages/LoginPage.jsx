@@ -34,7 +34,7 @@ function LoginPage() {
 
 	return (
 		<>
-			<h2 className='p-2 text-xl text-center text-slate-800'>Login</h2>
+			<h2 className='p-2 text-xl text-center text-slate-800 dark:text-slate-200'>Login</h2>
 			{error && <div className='p-2 text-red-500 bg-red-100'>{error}</div>}
 			<form onSubmit={handleLogin}>
 				<InputField
@@ -61,7 +61,7 @@ function LoginPage() {
 					{isLoading ? 'Memproses...' : 'Masuk'}
 				</ButtonNormal>
 			</form>
-			<p className='p-2 text-sm'>
+			<p className='p-2 text-sm text-slate-900 dark:text-slate-200'>
 				Belum punya akun?{' '}
 				<Link to={'/register'} className='underline'>
 					Daftar

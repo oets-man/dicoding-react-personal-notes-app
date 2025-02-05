@@ -15,6 +15,16 @@ export default function MainLayout() {
 	if (!isAuthenticated) {
 		return <Navigate to='/login' replace />;
 	}
+
+	const body = document.querySelector('body');
+	if (theme == 'light') {
+		body.classList.add('bg-slate-50');
+		body.classList.remove('bg-slate-900');
+	} else {
+		body.classList.add('bg-slate-900');
+		body.classList.remove('bg-slate-50');
+	}
+
 	return (
 		<>
 			<header className='bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200'>

@@ -10,8 +10,8 @@ function ButtonNormal({ children, iconName, disabled, ...props }) {
                 flex items-center px-4 py-2 m-2 text-sm rounded-md shadow-sm
                 ${
 					disabled
-						? 'bg-slate-300 text-slate-500 cursor-not-allowed'
-						: 'bg-white text-slate-900 ring-1 ring-inset ring-slate-600 hover:bg-slate-100'
+						? 'bg-slate-300 text-slate-500 cursor-not-allowed dark:bg-slate-700 dark:text-slate-400'
+						: 'bg-white text-slate-900 ring-1 ring-inset ring-slate-600 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
 				}
             `}
 		>

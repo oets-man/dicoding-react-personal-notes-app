@@ -20,7 +20,7 @@ function InputSearch({ search, onSearch, onReset, onChangeOption }) {
 	];
 
 	return (
-		<div className='grid max-w-xl grid-cols-5 grid-rows-2 mx-auto mb-4 border rounded-lg bg-slate-200 border-slate-300'>
+		<div className='grid max-w-xl grid-cols-5 grid-rows-2 mx-auto mb-4 border rounded-lg bg-slate-200 border-slate-300 dark:bg-slate-800'>
 			<div className='col-span-4 row-span-1 py-2 pl-2'>
 				<input
 					className='w-full p-2 rounded-md focus:ring-1 focus:ring-slate-500'

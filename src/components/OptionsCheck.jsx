@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 function OptionsCheck({ onChange, options }) {
 	const name = 'opt-' + Math.random().toString(16).slice(2, 10);
 	return (
-		<div className='flex gap-2 bg-slate-100 justify-evenly border border-slate-300 rounded-md p-2 focus-within:ring-1 focus-within:ring-slate-500'>
+		<div className='flex gap-2 p-2 border rounded-md bg-slate-100 justify-evenly border-slate-300 focus-within:ring-1 focus-within:ring-slate-500 dark:bg-slate-700'>
 			{options.map((option, index) => (
 				<div key={index} className=''>
-					<label className='flex items-center'>
+					<label className='flex items-center dark:text-slate-300'>
 						<input
 							type='radio'
 							name={name}

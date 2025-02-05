@@ -32,13 +32,16 @@ function NoteForm({ note, setNote, handleSubmit, handleReset }) {
 			/>
 
 			<div className='p-2'>
-				<label className='block font-medium text-gray-900 text-sm/6'>{label.content}</label>
+				<label className='block font-medium text-slate-900 dark:text-slate-100 text-sm/6'>
+					{label.content}
+				</label>
 				<EditorProvider>
 					<Editor
 						value={note.body}
 						onChange={(e) => {
 							setNote({ ...note, body: e.target.value });
 						}}
+						className='bg-slate-50 text-slate-950 dark:bg-slate-800 dark:text-slate-50'
 					>
 						<Toolbar>
 							<BtnUndo />
@@ -56,7 +59,7 @@ function NoteForm({ note, setNote, handleSubmit, handleReset }) {
 				</EditorProvider>
 			</div>
 
-			<div className='flex p-2 bg-slate-300'>
+			<div className='flex p-2 bg-slate-300 dark:bg-slate-700'>
 				<ButtonDanger iconName='carbon:reset' type='reset'>
 					{label.reset}
 				</ButtonDanger>
