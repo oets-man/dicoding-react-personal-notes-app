@@ -5,7 +5,6 @@ import { ButtonNormal } from '../components/Buttons';
 import { useState } from 'react';
 import { login as loginRequest } from '../utils/api';
 import useAuth from '../hooks/use-auth';
-import alertify from 'alertifyjs';
 
 function LoginPage() {
 	const [email, onEmailChange] = useInput('');
@@ -24,7 +23,6 @@ function LoginPage() {
 			if (!response || response.error) {
 				setError(response.message || 'Login gagal');
 			} else {
-				alertify.success('Selamat datang kembali');
 				login(response.data.accessToken);
 			}
 		} catch (err) {

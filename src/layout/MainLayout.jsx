@@ -8,19 +8,21 @@ import useAuth from '../hooks/use-auth';
 export default function MainLayout() {
 	const navigate = useNavigate();
 	const { theme, toggleTheme } = useTheme();
-	const { isAuthenticated, logout } = useAuth();
+	const { isAuthenticated, logout, user } = useAuth();
 
 	if (!isAuthenticated) {
 		return <Navigate to='/login' replace />;
 	}
-
 	return (
 		<>
 			<header className='bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200'>
 				<div className='flex items-center justify-between'>
-					<h1 className='p-4 text-xl font-medium '>
-						<Link to={'/'}>Aplikasi Catatan Pribadi</Link>
-					</h1>
+					<Link to={'/'} className='p-4 '>
+						<h1 className='text-xl font-medium '>Catatan Pribadi</h1>
+						<p className='font-thin' style={{ fontVariant: 'small-caps' }}>
+							{user.name}
+						</p>
+					</Link>
 					<div className='flex items-center'>
 						<nav className=''>
 							<ul className='flex items-center'>

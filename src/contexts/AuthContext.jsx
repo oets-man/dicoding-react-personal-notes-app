@@ -3,21 +3,21 @@ import { getAccessToken, getUserLogged, putAccessToken } from '../utils/api';
 import PropTypes from 'prop-types';
 import alertify from 'alertifyjs';
 
-const AuthContext = createContext({
-	isAuthenticated: false,
-	login: () => {},
-	logout: () => {},
-});
+const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
+	const localUser = JSON.parse(localStorage.getItem('user')) || {};
 	const [isAuthenticated, setIsAuthenticated] = useState(!!getAccessToken());
+	const [user, setUser] = useState(localUser);
 
 	const login = async (token) => {
 		putAccessToken(token);
+		const { data } = await getUserLogged();
+		localStorage.setItem('user', JSON.stringify(data));
+		setUser(data);
 		setIsAuthenticated(true);
-		const user = await getUserLogged();
-		localStorage.setItem('user', JSON.stringify(user.data));
+		alertify.success('Selamat datang kembali ' + data.name);
 	};
 
 	const logout = () => {
@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }) => {
 				putAccessToken('');
 				setIsAuthenticated(false);
 				localStorage.removeItem('user');
+				setUser({});
 			},
 			// on Cancel
 			() => {},
@@ -39,6 +40,7 @@ export const AuthProvider = ({ children }) => {
 		isAuthenticated,
 		login,
 		logout,
+		user,
 	};
 
 	return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;
