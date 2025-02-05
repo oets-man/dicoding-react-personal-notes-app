@@ -13,6 +13,7 @@
 	"dependencies": {
 		"@headlessui/react": "^2.2.0",
 		"alertifyjs": "^1.14.0",
+		"framer-motion": "^12.1.0",
 		"html-react-parser": "^5.2.2",
 		"prop-types": "^15.8.1",
 		"react": "^18.3.1",

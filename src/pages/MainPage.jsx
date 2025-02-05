@@ -6,6 +6,8 @@ import ListContainer from '../components/ListContainer';
 import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router-dom';
 import { getActiveNotes, getArchivedNotes } from '../utils/api';
+import LoadingSpinner from '../components/LoadingSpinner';
+import NotFound from '../components/NotFound';
 
 const MainPage = ({ status }) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -79,18 +81,13 @@ const MainPage = ({ status }) => {
 	return (
 		<div>
 			<main className='container mx-auto'>
+				<InputSearch onReset={onReset} onSearch={onSearch} onChangeOption={onChangeOption} search={search} />
 				{isLoading ? (
-					<p>Loading...</p>
+					<LoadingSpinner />
 				) : notes.length === 0 ? (
-					<p>Tidak ada data untuk ditampilkan!</p>
+					<NotFound>Tidak ada data untuk ditampilkan!</NotFound>
 				) : (
 					<>
-						<InputSearch
-							onReset={onReset}
-							onSearch={onSearch}
-							onChangeOption={onChangeOption}
-							search={search}
-						/>
 						<ListContainer
 							notes={filteredNotes()}
 							onUpdate={() => {

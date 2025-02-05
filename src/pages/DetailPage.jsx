@@ -5,6 +5,7 @@ import alertify from 'alertifyjs';
 import { useEffect, useState } from 'react';
 import { ButtonDanger, ButtonNormal } from '../components/Buttons';
 import { deleteNote, getNote } from '../utils/api';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 function DetailPage() {
 	const { id } = useParams();
@@ -59,10 +60,17 @@ function DetailPage() {
 	return (
 		<div>
 			{isLoading ? (
-				<p>Loading...</p>
+				<LoadingSpinner />
 			) : note ? (
 				<div className='max-w-4xl mx-auto'>
-					<ListItems {...note} onUpdate={() => setNote(getNote(note.id))} Component={buttons}></ListItems>
+					<ListItems
+						{...note}
+						onUpdate={() => {
+							// setRerender((prev) => !prev);
+							setNote((prev) => ({ ...prev, archived: !prev.archived }));
+						}}
+						Component={buttons}
+					/>
 				</div>
 			) : (
 				<NotFound>Catatan tidak temukan</NotFound>

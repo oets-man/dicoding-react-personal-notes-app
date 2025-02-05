@@ -3,6 +3,7 @@ import { useState } from 'react';
 import alertify from 'alertifyjs';
 import NoteForm from '../components/NoteForm';
 import { addNote } from '../utils/api';
+import LoadingOverlay from '../components/LoadingOverlay';
 
 function AddPage() {
 	const initNote = {
@@ -11,6 +12,8 @@ function AddPage() {
 	};
 
 	const [note, setNote] = useState(initNote);
+	const [isLoading, setIsLoading] = useState(false);
+
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
@@ -19,9 +22,15 @@ function AddPage() {
 			return alertify.error('Judul dan catatan tidak boleh kosong');
 		}
 
-		const response = await addNote(note);
-		alertify.success('Catatan berhasil ditambahkan');
-		navigate(`/notes/${response.data.id}`);
+		setIsLoading(true);
+		addNote(note).then(({ error, data }) => {
+			setIsLoading(false);
+			if (error) {
+				return alertify.error('Catatan gagal ditambahkan');
+			}
+			alertify.success('Catatan berhasil ditambahkan');
+			navigate(`/notes/${data.id}`);
+		});
 	};
 
 	const handleReset = (e) => {
@@ -33,6 +42,7 @@ function AddPage() {
 		<div className='container mx-auto'>
 			<div className='overflow-hidden border rounded-lg shadow-md border-slate-200'>
 				<div className='p-2 text-xl bg-slate-400 text-slate-800'>Buat Catatan</div>
+				<LoadingOverlay isLoading={isLoading} />
 				<NoteForm note={note} setNote={setNote} handleSubmit={handleSubmit} handleReset={handleReset} />
 			</div>
 		</div>

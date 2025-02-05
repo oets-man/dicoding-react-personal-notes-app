@@ -5,17 +5,27 @@ import parser from 'html-react-parser';
 import alertify from 'alertifyjs';
 import SwitchField from './SwitchField';
 import { archiveNote, unarchiveNote } from '../utils/api';
+import { useState } from 'react';
 
 function ListItems({ title, body, createdAt, archived, onUpdate, id, Component }) {
+	const [check, setCheck] = useState(archived);
+
 	const onChange = async () => {
-		if (archived) {
+		setCheck(!check);
+		if (check) {
 			const { error } = await unarchiveNote(id);
-			if (error) return alertify.error(error);
+			if (error) {
+				setCheck(true);
+				return alertify.error('Gagal dihapus dari arsip');
+			}
 			alertify.success('Catatan dihapus dari arsip');
 			return onUpdate();
 		} else {
 			const { error } = await archiveNote(id);
-			if (error) return alertify.error(error);
+			if (error) {
+				setCheck(false);
+				return alertify.error('Gagal dipindahkan ke arsip');
+			}
 			alertify.success('Catatan dipindahkan ke arsip');
 			return onUpdate();
 		}
@@ -35,7 +45,7 @@ function ListItems({ title, body, createdAt, archived, onUpdate, id, Component }
 				<div className='font-light text-justify'>{parser(body)}</div>
 			</div>
 			<div className='flex justify-between p-2 bg-slate-300'>
-				<SwitchField label='Arsip' checked={archived} onChange={onChange} />
+				<SwitchField label='Arsip' checked={check} onChange={onChange} />
 				<div className='italic font-light text-slate-700'>
 					<small> &mdash; dibuat: {showFormattedDate(createdAt)}</small>
 				</div>
