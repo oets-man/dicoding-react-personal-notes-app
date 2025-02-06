@@ -14,7 +14,7 @@ function OptionsCheck({ onChange, options }) {
 							value={option.value}
 							defaultChecked={option.defaultChecked}
 						/>
-						<span className='ml-2'>{option.label}</span>
+						<span className='ml-2'>{option?.label || 'Opsi'}</span>
 					</label>
 				</div>
 			))}
@@ -26,7 +26,7 @@ OptionsCheck.propTypes = {
 	onChange: PropTypes.func.isRequired,
 	options: PropTypes.arrayOf(
 		PropTypes.shape({
-			label: PropTypes.string.isRequired,
+			label: PropTypes.string,
 			value: PropTypes.string.isRequired,
 			defaultChecked: PropTypes.bool,
 		}),

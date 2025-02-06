@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import PropTypes from 'prop-types';
 
-function ButtonNormal({ children, iconName, disabled, ...props }) {
+function ButtonNormal({ children = 'Tombol', iconName, disabled, ...props }) {
 	return (
 		<button
 			{...props}
@@ -21,7 +21,7 @@ function ButtonNormal({ children, iconName, disabled, ...props }) {
 	);
 }
 
-function ButtonDanger({ children, iconName, disabled, ...props }) {
+function ButtonDanger({ children = 'Tombol', iconName, disabled, ...props }) {
 	return (
 		<button
 			{...props}
@@ -42,13 +42,13 @@ function ButtonDanger({ children, iconName, disabled, ...props }) {
 }
 
 ButtonNormal.propTypes = {
-	children: PropTypes.node.isRequired,
+	children: PropTypes.node,
 	iconName: PropTypes.string,
 	disabled: PropTypes.bool,
 };
 
 ButtonDanger.propTypes = {
-	children: PropTypes.node.isRequired,
+	children: PropTypes.node,
 	iconName: PropTypes.string,
 	disabled: PropTypes.bool,
 };
