@@ -11,7 +11,7 @@ function ButtonNormal({ children, iconName, disabled, ...props }) {
                 ${
 					disabled
 						? 'bg-slate-300 text-slate-500 cursor-not-allowed dark:bg-slate-700 dark:text-slate-400'
-						: 'bg-white text-slate-900 ring-1 ring-inset ring-slate-600 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
+						: 'bg-slate-50 text-slate-900 ring-1 ring-inset ring-slate-600 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
 				}
             `}
 		>
@@ -30,8 +30,8 @@ function ButtonDanger({ children, iconName, disabled, ...props }) {
                 px-4 py-2 m-2 text-sm rounded-md shadow-sm
                 ${
 					disabled
-						? 'bg-red-200 text-red-400 cursor-not-allowed'
-						: 'text-red-700 bg-white ring-1 ring-inset ring-red-600 hover:bg-red-100'
+						? 'bg-red-200 text-red-400 cursor-not-allowed dark:bg-red-700 dark:text-red-500'
+						: 'text-red-700 bg-slate-50 ring-1 ring-inset ring-red-600 hover:bg-red-100 dark:bg-red-800 dark:text-red-100 hover:dark:bg-red-700 dark:ring-red-300'
 				}
             `}
 		>
