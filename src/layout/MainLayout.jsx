@@ -32,10 +32,7 @@ export default function MainLayout() {
 					<Link to={'/'} className='p-4 '>
 						<h1 className='text-xl font-medium '>{label.personalNote}</h1>
 						<p className='font-thin' style={{ fontVariant: 'small-caps' }}>
-							{user.name}{' '}
-							<span className='text-xs italic' style={{ fontVariant: 'none' }}>
-								({user.email})
-							</span>
+							{user.name}
 						</p>
 					</Link>
 					<div className='flex items-center'>
@@ -69,7 +66,7 @@ export default function MainLayout() {
 			<main className='p-4'>
 				<Outlet />
 			</main>
-			<footer className='fixed inset-x-0 bottom-0 w-full px-4 py-1 text-sm bg-slate-300 text-slate-700 dark:bg-slate-950 dark:text-slate-400'>
+			<footer className='fixed inset-x-0 bottom-0 w-full px-4 py-1 text-sm bg-gray-600 text-slate-100'>
 				<p className='m-0 text-center'>
 					<a href='https://github.com/idsantri' target='_blank'>
 						by oets

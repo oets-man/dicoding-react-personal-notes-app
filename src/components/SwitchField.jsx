@@ -8,7 +8,7 @@ function SwitchField({ checked, onChange, label }) {
 				<Switch
 					checked={checked}
 					onChange={onChange}
-					className='group flex w-8 flex-none cursor-pointer rounded-full bg-slate-200 dark:bg-slate-600 p-px ring-1 ring-inset ring-slate-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600 data-[checked]:bg-slate-600 dark:data-[checked]:bg-slate-50'
+					className='group flex w-8 flex-none cursor-pointer rounded-full bg-slate-200 dark:bg-slate-600 p-px ring-1 ring-inset ring-slate-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600 data-[checked]:bg-slate-600 dark:data-[checked]:bg-slate-100'
 				>
 					<span className='sr-only'>{label}</span>
 					<span
